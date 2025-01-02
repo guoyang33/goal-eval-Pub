@@ -1,0 +1,28 @@
+Alan:
+    計算上一週分數
+        分數 = (EXP(LOG(SUM( 參與者的reduce[category] ))) * 使用時間[第0週][category] ) >= 
+
+更新 設定 的分數 流程：
+    檢查手機組別
+    查詢第0週使用時間 (Baseline)
+    查詢上一週使用時間    
+    計算上一週分數
+    更新分數
+            
+Goal.updateScoreGame(uId, week, isIOS):
+    if isIOS:
+        baesline = CategoryIOSUsageTime.getBaseLineGame(uId)
+        usagetime = CategoryIOSUsageTime.getUsageTimeGame(uId, week)
+    else:
+        baseline = CategoryAndroidUsageTime.getBaseLineGame(uId)
+        usagetime = CategoryAndroidUsageTime.getUsageTimeGame(uId, week)
+
+    dbh = DBConnect.getInstance()
+    sth = dbh->prepare("UPDATE goal SET " . COLUMN_GAME_SCORE . " = :game_score WHERE u_id=:uId AND week=:week")
+    sth.execute()
+
+Check device group
+    Get baseline usage time
+        Get last week usage time
+            Calculate last week score
+                Update goal score

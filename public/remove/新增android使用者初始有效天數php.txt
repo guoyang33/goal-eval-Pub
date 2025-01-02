@@ -1,0 +1,42 @@
+<?php
+/**
+ * 用來給予Android使用者初始有效天數的單次使用php腳本
+ * 
+*/
+
+/*
+require_once './../connect_db.php';
+
+$sth = $dbh->prepare("SELECT `id` FROM `user` WHERE `id` > 46 AND `id` < 107;");
+$sth->execute();
+$user_id = $sth->fetchAll();
+
+$counter = 0;
+
+$sth = $dbh->prepare('INSERT INTO `valid_days`(`id`, `u_id`, `provide_days`, `source_file`, `source_object`, `week`, `date`) VALUES (NULL, :u_id, :provide_days, :source_file, :source_object, :week, :date);');
+
+echo '<h4>(';
+foreach ($user_id as $u_ids) {
+    $sth->execute([
+        'u_id' => $u_ids['id'],
+        'provide_days' => 8,
+        'source_file' => 'SINGLE_USED_MANUAL_PHP_SCRIPT',
+        'source_object' => '{"REASON":"PROVIDE_BEGINNING_PROGRESS_ANDROID", "THROUGH":"single_used_manual_php_script---for_android"}',
+        'week' => 0,
+        'date' => date('Y-m-d')
+    ]);
+
+    if ($dbh->lastInsertId() === false) {
+        echo '<h1>INSERT ERROR: ';
+        var_dump($dbh->errorInfo());
+        echo '</h1>';
+    }
+
+    echo "{$u_ids['id']}, ";
+    $counter += 1;
+}
+echo ')</h4>';
+echo "<h4>Length: {$counter}</h4>";
+*/
+
+?>

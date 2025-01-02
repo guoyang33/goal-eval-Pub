@@ -1,0 +1,10 @@
+第十週第一次更新[2023-04-24]:
+    1. [修改] progress_overview.php修改，原本選完選項後是直接在原視窗分頁(window)跳至該選項的對應頁，改成開啟新分頁後顯示在新視窗分頁。
+    2. [修改] progress_overview_lib.php修改:
+        常數PROGRESS_LIB_ANDROID['cluster_sql_condition_string']值  : '`u_id` > 47 AND `u_id` < 106'    -> '`u_id` > 46 AND `u_id` < 107'
+        常數PROGRESS_LIB_IOS['cluster_sql_condition_string']值      : '`u_id` > 117'                    -> '`u_id` > 116'
+        各組進度欄位新增9、10及11週自我評估單
+
+過去更新累積待辦事項：
+    未完成 - (SINCE: V4_1)[建議] 承4，設定目標目前是會更新原本舊有資料，因此給予有效天數的地方並不包含在判斷是否重複提交的區塊內，所以可能會有重複提交的情況，儘管給予的天數本來就是0天所以影響較小，不過該部分功能仍需改善。
+    未完成 - (SINCE: V7_1)(測試後無作用)[修改] html_head.php中header裡除了原本的user-select: none;外再新增-webkit-user-select: none;用以支援Safari，因為其不支援user-select(待確認，參考:https://developer.mozilla.org/en-US/docs/Web/CSS/user-select#css)。

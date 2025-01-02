@@ -1,0 +1,38 @@
+Apache on Windows - ModSecurity Install & Configuration
+
+*************************************
+*			Always remember			*
+*	To watch error.log for check	*
+*	apache server activity			*
+*************************************
+
+Assume apache server is on as well, in this is test I use the newest version(2.4.62)
+Download mod_security package from Apache Lounge
+Download mod_security latest release from their Github, just for unicode.mapping.
+	copy unicode.mapping into same directory to the modsecurity.conf
+Download CRS(Core Rule Set) via git: 
+	git clone https://github.com/coreruleset/coreruleset.git
+	it's a live patch, after all you can update via git command(pull).
+
+Configuration
+	httpd.conf
+		enable_module mod_unique_id
+		append lines below:
+			# ModSecurity2
+			##Add the following rule to load the security module.
+			LoadModule security2_module modsecurity.d/mod_security-2.9.7/mod_security2.so
+
+			Include modsecurity.d/mod_security-2.9.7/mod_security/modsecurity.conf
+
+			<IfModule security2_module>
+				Include modsecurity.d/coreruleset/crs-setup.conf
+				Include modsecurity.d/coreruleset/rules/*.conf
+			</IfModule>
+	
+	modsecurity.conf
+		SecRuleEngine On (instead of DetectionOnly)
+		SecAuditLog logs/modsec_audit.log (instead of /var/log/modsec_audit.log except for linux)
+
+--
+
+Authored by CYouLiao Aug 3,2024.

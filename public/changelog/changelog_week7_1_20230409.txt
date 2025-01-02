@@ -1,0 +1,62 @@
+第七週更新[2023-04-09 ~ 2023-04-22]:
+    1.  [新增] 新增`valid_days_error`資料表，用以紀錄`valid_days`資料表中出現的錯誤，暫時只有手動移入的方式。
+        欄位註釋:
+            `log_date`      移入的日期
+            `reason`        原因
+            `original_id`   原本`valid_days`中的`id`
+            其餘欄位依照原本`valid_days`中的欄位資料填入
+        執行SQL:
+            CREATE TABLE `valid_days_error` (
+                `id` int(11) NOT NULL,
+                `log_date` date DEFAULT NULL,
+                `reason` text DEFAULT NULL,
+                `original_id` int(11) NOT NULL,
+                `u_id` int(11) NOT NULL,
+                `provide_days` int(11) NOT NULL,
+                `source_file` text DEFAULT NULL,
+                `source_object` text DEFAULT NULL,
+                `week` int(11) DEFAULT NULL,
+                `date` date DEFAULT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+            ALTER TABLE `valid_days_error` ADD PRIMARY KEY (`id`);
+
+            ALTER TABLE `valid_days_error` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+    2.  [新增] 新增super資料用以放置需要特殊高級權限(如研究人員及管理者)的頁面及其內部相關檔案
+        內部檔案:
+            progress_overview       查看使用者進度的相關頁面檔案
+                ├ progress_overview.php             查看使用者進度主頁面
+                ├ progress_overview_lib.php         查看使用者進度函式庫檔
+                └ progress_overview_download.php    查看使用者進度下載檔案
+            super_login.php         超級使用者權限登入頁面
+            super_menu.php          超級使用者權限選單頁面，用以選擇要轉至哪個頁面，如：progress_overview等...
+
+    3.  [新增] 新增goal_android.php、goal_ios.php及goal_lib.php，三個檔案用於查看擁有的獎勵拼圖。
+        描述：
+            goal_android.php    查看擁有的獎勵拼圖 Android
+            goal_ios.php        查看擁有的獎勵拼圖 Ios
+            goal_lib.php        查看擁有的獎勵拼圖 函式庫
+
+    4.  [新增] 新增app_usage_lookup_and_rank_android.php、app_usage_lookup_and_rank_ios.php及app_usage_lookup_and_rank_lib.php，三個檔案用於查看各App類別的使用時間及排名。
+        描述：
+            app_usage_lookup_and_rank_android.php       查看各App類別的使用時間及排名 Android
+            app_usage_lookup_and_rank_ios.php           查看各App類別的使用時間及排名 Ios
+            app_usage_lookup_and_rank_lib.php           查看各App類別的使用時間及排名 函式庫
+
+    5.  --(測試後無作用)[修改] html_head.php中header裡除了原本的user-select: none;外再新增-webkit-user-select: none;用以支援Safari，因為其不支援user-select(待確認，參考:https://developer.mozilla.org/en-US/docs/Web/CSS/user-select#css)。
+    6.  [修改] self_evaluate_android.php及self_evaluate_ios.php同步修改，原本的要填第幾週自我評估單判定由($week >= 1 && $week <= 7)及($week >= 8 && $week <= 24)改為，($week >= 1 && $week <= 8)及($week >= 9 && $week <= 24)以反映正確週數。
+    7.  [修改] results_calculate_goal_android.php及results_calculate_goal_ios.php同步修改，新增顯示各個類別的成就拼圖功能。
+    8.  [修改] redirect.php及redirect_ios.php同步修改：
+        ├ 1. 第九週(結束訓練期)後的計算分數及設定目標的判定，因為已不再需要進行這兩項功能，且改善本來會一直卡在顯示「不需要設定目標」的頁面，使其正確導至首頁。
+        ├ 2. 主頁面新增查看獎勵拼圖，並移除原本僅顯示自我評估單拼圖的功能。
+        └ 3. 修復了查看各App類別的使用時間及排名，現在能夠正常連結了。
+
+    9.  [修改] redirect_ios.php修改，本來第9~24週的自我評估單是否判定用的是get_form_answer_self_evaluate這個函式，改為呼叫get_form_answer_self_evaluate_ios才是正確的。
+    10. [修改] self_evaluate_android_submit.php及self_evaluate_ios_submit.php同步修改，修正在給予有效天數時的錯誤——原本常數定義給的第8週自我評估單有效天數為0天，但實際需給的有效天數為7天，所以以條件判斷的方式複寫原有給予天數(僅第8週自我評估單有這個問題)。
+    11. [修改] connect_db.php修改get_form_answer_self_evaluate_ios該函式的$form_name給值方式。
+
+    12. [刪除] 原本的goal.php及goal_ios.php兩個檔案移至remove資料夾，改由新增的goal_android.php、goal_ios.php及goal_lib.php取代。
+
+過去更新累積待辦事項：
+    未完成 - (SINCE: V4_1)[建議] 承4，設定目標目前是會更新原本舊有資料，因此給予有效天數的地方並不包含在判斷是否重複提交的區塊內，所以可能會有重複提交的情況，儘管給予的天數本來就是0天所以影響較小，不過該部分功能仍需改善。

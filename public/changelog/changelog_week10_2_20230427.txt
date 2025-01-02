@@ -1,0 +1,11 @@
+第十週第二次更新[2023-04-27]:
+    1. [新增] img資料夾內新增user_login_webpage_index_main_img.gif，該檔案用於更新版面的user_login_webpage_index.php
+
+    2. [修改] training_strategy_practice_js.php及training_strategy_apply_js.php同步修改，因Youtube Iframe API修改原本取得嵌入撥放器iframe DOM元素本體的物件名稱(原變數名稱為"h"，後被改為"g")，為避免之後變數名稱又修改，所以改為呼叫其API內建函式getIframe()以取得iframe DOM元素本體。
+        (參考:https://developers.google.com/youtube/iframe_api_reference#Accessing_and_Modifying_DOM_Nodes)
+    3. [修改] 承1，user_login_webpage_index.php更換為設計過之版面。
+
+過去更新累積待辦事項：
+    未完成 - (SINCE: V4_1)[建議] 承4，設定目標目前是會更新原本舊有資料，因此給予有效天數的地方並不包含在判斷是否重複提交的區塊內，所以可能會有重複提交的情況，儘管給予的天數本來就是0天所以影響較小，不過該部分功能仍需改善。
+    未完成 - (SINCE: V7_1)(測試後無作用)[修改] html_head.php中header裡除了原本的user-select: none;外再新增-webkit-user-select: none;用以支援Safari，因為其不支援user-select(待確認，參考:https://developer.mozilla.org/en-US/docs/Web/CSS/user-select#css)。
+    (SINCE: V10_2)[建議] 承1，可建立一個存取Youtube API物件的統一介面物件，以保證所有函式所呼叫的變數以及函式名稱相同，達成一定程度上的結構化，且當如需修改對API物件存取之名稱時，也可較方便的只需修改該物件本身。

@@ -1,0 +1,11 @@
+完成註冊帳號（安卓組） * 1
+
+測試login_android.php
+    input: Token, ExpID
+        output: isLogin or not
+    input: StdID, Password
+        output: isLogin or not, Token, and ExpID
+
+測試redirect_android.php
+    input(GET): Token, ExpID
+        output: setsession, header.location=redirect.php

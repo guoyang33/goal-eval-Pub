@@ -1,0 +1,9 @@
+source/pyscripts/*.json
+.vscode/launch.json
+output/
+db/
+
+pyscripts/
+vendor/
+dist/
+assets/

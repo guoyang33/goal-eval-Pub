@@ -1,0 +1,21 @@
+第四週更新[2023-03-23 01:00~12:00]:
+    1.  [修改] training_strategy_practice_js.php 新增觀看影片1分鐘後可略過的功能。
+    2.  [修改] 承1，初始化影片參數(playerVars)新增fs : 0，以禁止手機全螢幕播放。
+    3.  [修改] 承1，修改影片大小改變時，調整mask(svg)的機制。
+    4.  [修改] 承1，修改看廣告頁面，判定(querySelector)下一步按鈕的方法，因為原方法會與新加入的略過按鈕衝突。
+    5.  [修改] html_head.html中head內新增取消右鍵事件的script
+    6.  [修改] connect_db.php中，去除PROVIDE_VALID_DAYS常量中重複的Key(4種策略訓練_practice結尾的，共4個)。
+    7.  [修改] self_evaluate_android_submit.php及self_evaluate_ios_submit.php中，新增有效天數(insert_provide_valid_days())參數修改，原本week的參數為($week - 1)改為單純只有$week，以對應到填寫的自我評估單原本週數。
+    8.  [修改] 承7，將有效天數(資料表valid_days)中，原有的自我評估單(source_object = self_evaluate_*_**_*)的week欄位都-1以對應到提交的評估單的週數，而非提交時的週數。
+        執行SQL：
+            SELECT * FROM `valid_days` WHERE `source_object` LIKE 'self_evaluate_%';
+            UPDATE `valid_days` SET `week` = (`week` - 1) WHERE `source_object` LIKE 'self_evaluate_%';
+
+    9.  [新增] training_strategy_apply_js.php 該檔案為training_strategy_practice_js.php的副本，暫無修改，用於策略訓練應用。
+    10. [新增] training_strategy_apply.php 用於要選擇哪種策略訓練的判定。
+    11. [新增] 新增training_strategy_future_apply.php、training_strategy_advantages_apply.php、training_strategy_misdirection_apply.php、training_strategy_breathing_apply.php 4個檔案並調整對應數值，分別對應策略訓練-挑戰(practice)的4種策略訓練。
+    12. [新增] training_strategy_apply_form_submit.php 用於策略訓練應用，頁面的提交，對應training_strategy_form_target.php。
+    13. [新增] 資料庫標單名稱(資料表form)新增training_strategy_apply。
+
+過去更新累積待辦事項：
+    未完成 - [建議] 承4，設定目標目前是會更新原本舊有資料，因此給予有效天數的地方並不包含在判斷是否重複提交的區塊內，所以可能會有重複提交的情況，儘管給予的天數本來就是0天所以影響較小，不過該部分功能仍需改善。
